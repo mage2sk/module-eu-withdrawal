@@ -69,6 +69,7 @@ Performance • SEO • Adobe Commerce Cloud
 
 ## Table of Contents
 
+- [Screenshots](#screenshots)
 - [What Directive (EU) 2023/2673 Requires](#what-directive-eu-20232673-requires)
 - [Key Features](#key-features)
 - [How This Module Meets the Directive](#how-this-module-meets-the-directive)
@@ -88,6 +89,56 @@ Performance • SEO • Adobe Commerce Cloud
 - [License](#license)
 - [About Panth Infotech](#about-panth-infotech)
 - [Quick Links](#quick-links)
+
+---
+
+## Screenshots
+
+### Storefront
+
+**Always-visible floating "Cancel my order" tab on every page (Hyvä shown):**
+
+![Floating withdrawal button on a product page](docs/screenshots/01-storefront-floating-button.png)
+
+**Pop-up withdrawal form — logged-in customers pick the order from a dropdown, with name and email pre-filled:**
+
+![Withdrawal modal with order dropdown](docs/screenshots/02-withdrawal-modal.png)
+
+**Step 2 — order summary and "Confirm withdrawal" before anything is recorded:**
+
+![Confirm withdrawal page](docs/screenshots/03-confirm-withdrawal.png)
+
+**Proof page with the unique reference after the withdrawal is recorded:**
+
+![Withdrawal received proof page](docs/screenshots/04-withdrawal-received.png)
+
+### Customer Account
+
+**"My withdrawals" history, placed right after "My Orders", with status badges and a View action:**
+
+![Customer account withdrawal history](docs/screenshots/05-account-my-withdrawals.png)
+
+**Per-request detail with status, proof reference and the full content of the withdrawal:**
+
+![Customer account withdrawal detail](docs/screenshots/06-account-withdrawal-detail.png)
+
+### Admin
+
+**Configuration — General, Form, Compliance Content, Notifications and Batch Processing:**
+
+![Admin configuration](docs/screenshots/07-admin-configuration.png)
+
+**EU Withdrawal Requests grid with status column, order links and filters:**
+
+![Admin withdrawal requests grid](docs/screenshots/08-admin-requests-grid.png)
+
+**Request detail — proof content, status workflow and internal note:**
+
+![Admin withdrawal request detail](docs/screenshots/09-admin-request-detail.png)
+
+**"EU Withdrawal Request" panel on the sales order view, linking the order to its request:**
+
+![Admin order view withdrawal panel](docs/screenshots/10-admin-order-view-panel.png)
 
 ---
 
