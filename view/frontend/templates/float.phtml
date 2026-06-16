@@ -1,0 +1,27 @@
+<?php
+/**
+ * Floating side withdrawal button (Hyva + Luma).
+ *
+ * position:fixed, so its location in the DOM (before.body.end) is irrelevant.
+ * Styling comes from an external stylesheet (CSP-safe), so it looks identical
+ * on both themes.
+ *
+ * @var \Panth\EuWithdrawal\Block\Link $block
+ * @var \Magento\Framework\Escaper $escaper
+ */
+$side = $block->getFloatSide() === 'left' ? 'left' : 'right';
+$label = $block->getLabel();
+?>
+<div class="panth-euw-float panth-euw-float--<?= $escaper->escapeHtmlAttr($side) ?>">
+    <a class="panth-euw-float__btn"
+       href="<?= $escaper->escapeUrl($block->getHref()) ?>"
+       data-panth-euw-open
+       title="<?= $escaper->escapeHtmlAttr($label) ?>"
+       aria-label="<?= $escaper->escapeHtmlAttr($label) ?>">
+        <svg class="panth-euw-float__icon" viewBox="0 0 24 24" fill="none"
+             stroke="currentColor" stroke-width="2" aria-hidden="true" focusable="false">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M9 15 3 9m0 0 6-6M3 9h12a6 6 0 0 1 0 12h-3"/>
+        </svg>
+        <span class="panth-euw-float__label"><?= $escaper->escapeHtml($label) ?></span>
+    </a>
+</div>

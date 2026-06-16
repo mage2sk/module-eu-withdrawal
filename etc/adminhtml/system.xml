@@ -1,0 +1,187 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Config:etc/system_file.xsd">
+    <system>
+        <tab id="panth" translate="label" sortOrder="400">
+            <label>Panth Extensions</label>
+        </tab>
+        <section id="panth_euwithdrawal" translate="label" type="text" sortOrder="180"
+                 showInDefault="1" showInWebsite="1" showInStore="1">
+            <label>EU Withdrawal Button</label>
+            <tab>panth</tab>
+            <resource>Panth_EuWithdrawal::config</resource>
+
+            <group id="general" translate="label" type="text" sortOrder="10"
+                   showInDefault="1" showInWebsite="1" showInStore="1">
+                <label>General</label>
+                <field id="enabled" translate="label comment" type="select" sortOrder="10"
+                       showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Enable Withdrawal Button</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    <comment>Directive (EU) 2023/2673 requires a clear, accessible digital withdrawal function from 19 June 2026.</comment>
+                </field>
+                <field id="button_label" translate="label comment" type="text" sortOrder="20"
+                       showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Button / Link Label</label>
+                    <comment>Use clear wording, e.g. "Cancel my order" or "Withdraw my order". Vague labels are not compliant.</comment>
+                    <depends><field id="enabled">1</field></depends>
+                </field>
+                <field id="placement" translate="label comment" type="multiselect" sortOrder="30"
+                       showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Storefront Placement</label>
+                    <source_model>Panth\EuWithdrawal\Model\Source\Placement</source_model>
+                    <comment>Where the always-visible withdrawal button appears. Must stay reachable on desktop and mobile. The floating side button is recommended.</comment>
+                    <depends><field id="enabled">1</field></depends>
+                </field>
+                <field id="float_side" translate="label comment" type="select" sortOrder="35"
+                       showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Floating Button Side</label>
+                    <source_model>Panth\EuWithdrawal\Model\Source\FloatSide</source_model>
+                    <comment>Applies when "Floating side button" placement is selected.</comment>
+                    <depends><field id="enabled">1</field></depends>
+                </field>
+                <field id="period_days" translate="label comment" type="text" sortOrder="40"
+                       showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Withdrawal Period (days)</label>
+                    <validate>validate-digits validate-greater-than-zero</validate>
+                    <comment>Minimum is 14 days. If the consumer was not informed of the right of withdrawal before purchase, the period extends to 12 months by law.</comment>
+                    <depends><field id="enabled">1</field></depends>
+                </field>
+                <field id="period_basis" translate="label comment" type="select" sortOrder="50"
+                       showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Period Starts From</label>
+                    <source_model>Panth\EuWithdrawal\Model\Source\PeriodBasis</source_model>
+                    <comment>The legal period runs from the date of receipt. Choose "Shipment date" when fulfilment is tracked, otherwise "Order date".</comment>
+                    <depends><field id="enabled">1</field></depends>
+                </field>
+                <field id="order_status" translate="label comment" type="select" sortOrder="60"
+                       showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Set Order Status On Withdrawal</label>
+                    <source_model>Magento\Sales\Model\Config\Source\Order\Status</source_model>
+                    <comment>Optional. A status history comment is always recorded. Leave blank to keep the current status.</comment>
+                    <depends><field id="enabled">1</field></depends>
+                </field>
+            </group>
+
+            <group id="form" translate="label" type="text" sortOrder="20"
+                   showInDefault="1" showInWebsite="1" showInStore="1">
+                <label>Withdrawal Form</label>
+                <field id="ask_reason" translate="label comment" type="select" sortOrder="10"
+                       showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Ask For Withdrawal Reason</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    <comment>If shown, the reason field is always optional — it can never be required (legal requirement).</comment>
+                </field>
+                <field id="enable_honeypot" translate="label comment" type="select" sortOrder="20"
+                       showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Enable Honeypot Spam Protection</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+                <field id="rate_limit" translate="label comment" type="text" sortOrder="30"
+                       showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Lookups Allowed Per IP (per 10 min)</label>
+                    <validate>validate-digits</validate>
+                    <comment>Anti-enumeration throttle on the order lookup step. 0 disables throttling.</comment>
+                </field>
+            </group>
+
+            <group id="compliance" translate="label comment" type="text" sortOrder="30"
+                   showInDefault="1" showInWebsite="1" showInStore="1">
+                <label>Compliance Content</label>
+                <comment>Shown on the withdrawal page and included in emails to keep consumers informed (checklist section 4).</comment>
+                <field id="intro_text" translate="label" type="textarea" sortOrder="10"
+                       showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Right Of Withdrawal Notice</label>
+                </field>
+                <field id="excluded_products_text" translate="label" type="textarea" sortOrder="20"
+                       showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Excluded Products Notice</label>
+                    <comment>e.g. custom-made goods, perishables, sealed hygienic products once opened, digital content once downloaded.</comment>
+                </field>
+                <field id="return_shipping_text" translate="label" type="textarea" sortOrder="30"
+                       showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Return Shipping Costs Notice</label>
+                </field>
+                <field id="refund_policy_text" translate="label" type="textarea" sortOrder="40"
+                       showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Refund Policy Notice</label>
+                    <comment>Refunds are processed within 14 days of the withdrawal declaration, via the original payment method.</comment>
+                </field>
+            </group>
+
+            <group id="email" translate="label" type="text" sortOrder="40"
+                   showInDefault="1" showInWebsite="1" showInStore="1">
+                <label>Notifications &amp; Emails</label>
+                <field id="sender_identity" translate="label" type="select" sortOrder="10"
+                       showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Email Sender</label>
+                    <source_model>Magento\Config\Model\Config\Source\Email\Identity</source_model>
+                </field>
+                <field id="send_customer_confirmation" translate="label comment" type="select" sortOrder="20"
+                       showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Send Customer Confirmation (durable proof)</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    <comment>Required by the directive: an automated confirmation on a durable medium with date, time and content of the withdrawal.</comment>
+                </field>
+                <field id="customer_template" translate="label" type="select" sortOrder="30"
+                       showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Customer Confirmation Template</label>
+                    <source_model>Magento\Config\Model\Config\Source\Email\Template</source_model>
+                    <depends><field id="send_customer_confirmation">1</field></depends>
+                </field>
+                <field id="send_admin_notification" translate="label" type="select" sortOrder="40"
+                       showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Send Admin Notification</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+                <field id="recipient_email" translate="label" type="text" sortOrder="50"
+                       showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Admin Notification Email</label>
+                    <validate>validate-email</validate>
+                    <depends><field id="send_admin_notification">1</field></depends>
+                </field>
+                <field id="admin_template" translate="label" type="select" sortOrder="60"
+                       showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Admin Notification Template</label>
+                    <source_model>Magento\Config\Model\Config\Source\Email\Template</source_model>
+                    <depends><field id="send_admin_notification">1</field></depends>
+                </field>
+                <field id="inject_order_email_link" translate="label comment" type="select" sortOrder="70"
+                       showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Add Withdrawal Link To Order Emails</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    <comment>Adds a direct, pre-filled withdrawal link to every order confirmation email (checklist section 3).</comment>
+                </field>
+            </group>
+
+            <group id="batch" translate="label" type="text" sortOrder="50"
+                   showInDefault="1" showInWebsite="0" showInStore="0">
+                <label>Batch Processing &amp; Reminders</label>
+                <field id="cron_enabled" translate="label comment" type="select" sortOrder="10"
+                       showInDefault="1">
+                    <label>Enable Batch Processor (cron)</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    <comment>Retries failed confirmation emails and sends refund-deadline reminders.</comment>
+                </field>
+                <field id="batch_size" translate="label" type="text" sortOrder="20" showInDefault="1">
+                    <label>Batch Size</label>
+                    <validate>validate-digits validate-greater-than-zero</validate>
+                    <depends><field id="cron_enabled">1</field></depends>
+                </field>
+                <field id="refund_reminder_enabled" translate="label" type="select" sortOrder="30"
+                       showInDefault="1">
+                    <label>Send Refund-Deadline Reminder To Admin</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    <depends><field id="cron_enabled">1</field></depends>
+                </field>
+                <field id="refund_reminder_days" translate="label comment" type="text" sortOrder="40"
+                       showInDefault="1">
+                    <label>Remind After (days)</label>
+                    <validate>validate-digits validate-greater-than-zero</validate>
+                    <comment>Refunds must be issued within 14 days of the withdrawal declaration; remind before that lapses.</comment>
+                    <depends><field id="refund_reminder_enabled">1</field></depends>
+                </field>
+            </group>
+        </section>
+    </system>
+</config>

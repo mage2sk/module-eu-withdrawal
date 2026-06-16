@@ -1,0 +1,13 @@
+<?php
+/**
+ * "Cancel my order" button on the customer order-view page.
+ *
+ * @var \Panth\EuWithdrawal\Block\Order\WithdrawButton $block
+ * @var \Magento\Framework\Escaper $escaper
+ */
+?>
+<div class="panth-euw panth-euw-orderbtn">
+    <a class="panth-euw-btn panth-euw-btn--sm" href="<?= $escaper->escapeUrl($block->getWithdrawUrl()) ?>">
+        <?= $escaper->escapeHtml($block->getLabel()) ?>
+    </a>
+</div>

@@ -1,0 +1,31 @@
+<!--@subject New withdrawal request — order {{var data.increment_id}} @-->
+<!--@vars {
+"var data.proof_reference":"Proof reference",
+"var data.increment_id":"Order number",
+"var data.customer_name":"Customer name",
+"var data.customer_email":"Customer email",
+"var data.reason":"Reason",
+"var data.requested_at":"Date and time of withdrawal",
+"var data.withdrawal_content":"Content of the withdrawal"
+} @-->
+<table cellpadding="0" cellspacing="0" border="0" width="100%" style="font-family:Arial,Helvetica,sans-serif;color:#1a1a1a;">
+    <tr>
+        <td style="padding:20px;">
+            <h1 style="font-size:20px;margin:0 0 12px;">{{trans "New EU withdrawal request"}}</h1>
+            <p style="font-size:14px;line-height:1.6;">{{trans "A customer has exercised their right of withdrawal. Please process any refund within 14 days of the declaration."}}</p>
+
+            <table cellpadding="0" cellspacing="0" border="0" width="100%" style="margin:16px 0;border:1px solid #e0e0e0;border-radius:6px;">
+                <tr><td style="padding:14px;font-size:14px;line-height:1.7;">
+                    <strong>{{trans "Proof reference"}}:</strong> {{var data.proof_reference}}<br/>
+                    <strong>{{trans "Order number"}}:</strong> {{var data.increment_id}}<br/>
+                    <strong>{{trans "Customer"}}:</strong> {{var data.customer_name}} ({{var data.customer_email}})<br/>
+                    <strong>{{trans "Date and time"}}:</strong> {{var data.requested_at}}
+                    {{depend data.reason}}<br/><strong>{{trans "Reason"}}:</strong> {{var data.reason}}{{/depend}}
+                </td></tr>
+            </table>
+
+            <h3 style="font-size:15px;margin:18px 0 6px;">{{trans "Content of the withdrawal"}}</h3>
+            <pre style="font-family:Arial,Helvetica,sans-serif;font-size:13px;line-height:1.6;white-space:pre-wrap;background:#f7f7f7;padding:12px;border-radius:6px;">{{var data.withdrawal_content}}</pre>
+        </td>
+    </tr>
+</table>

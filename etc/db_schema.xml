@@ -1,0 +1,69 @@
+<?xml version="1.0"?>
+<schema xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:framework:Setup/Declaration/Schema/etc/schema.xsd">
+    <table name="panth_eu_withdrawal_request" resource="default" engine="innodb"
+           comment="EU Right-of-Withdrawal Requests (Directive (EU) 2023/2673)">
+        <column xsi:type="int" name="request_id" unsigned="true" nullable="false" identity="true"
+                comment="Request ID"/>
+        <column xsi:type="int" name="order_id" unsigned="true" nullable="true"
+                comment="Sales Order Entity ID"/>
+        <column xsi:type="varchar" name="increment_id" nullable="false" length="50"
+                comment="Order Increment ID"/>
+        <column xsi:type="smallint" name="store_id" unsigned="true" nullable="false" default="0"
+                comment="Store ID"/>
+        <column xsi:type="varchar" name="customer_name" nullable="false" length="255"
+                comment="Customer Name"/>
+        <column xsi:type="varchar" name="customer_email" nullable="false" length="255"
+                comment="Customer Email"/>
+        <column xsi:type="text" name="reason" nullable="true"
+                comment="Optional withdrawal reason"/>
+        <column xsi:type="smallint" name="status" unsigned="true" nullable="false" default="1"
+                comment="1=Received 2=Acknowledged 3=Refunded 4=Rejected"/>
+        <column xsi:type="text" name="withdrawal_content" nullable="true"
+                comment="Snapshot of what was withdrawn (durable proof content)"/>
+        <column xsi:type="varchar" name="proof_reference" nullable="false" length="64"
+                comment="Unique proof/confirmation reference"/>
+        <column xsi:type="datetime" name="requested_at" nullable="true"
+                comment="Date and time the consumer confirmed the withdrawal"/>
+        <column xsi:type="varchar" name="ip_address" nullable="true" length="45"
+                comment="Submitter IP Address"/>
+        <column xsi:type="varchar" name="user_agent" nullable="true" length="512"
+                comment="Submitter User Agent"/>
+        <column xsi:type="smallint" name="confirmation_sent" unsigned="true" nullable="false" default="0"
+                comment="1 once durable-medium confirmation email is sent"/>
+        <column xsi:type="smallint" name="reminder_sent" unsigned="true" nullable="false" default="0"
+                comment="1 once refund-deadline reminder is sent to admin"/>
+        <column xsi:type="text" name="admin_note" nullable="true"
+                comment="Internal admin note"/>
+        <column xsi:type="timestamp" name="created_at" on_update="false" nullable="false"
+                default="CURRENT_TIMESTAMP" comment="Created At"/>
+        <column xsi:type="timestamp" name="updated_at" on_update="true" nullable="false"
+                default="CURRENT_TIMESTAMP" comment="Updated At"/>
+
+        <constraint xsi:type="primary" referenceId="PRIMARY">
+            <column name="request_id"/>
+        </constraint>
+        <constraint xsi:type="unique" referenceId="PANTH_EU_WITHDRAWAL_REQUEST_ORDER_ID">
+            <column name="order_id"/>
+        </constraint>
+        <constraint xsi:type="unique" referenceId="PANTH_EU_WITHDRAWAL_REQUEST_PROOF_REFERENCE">
+            <column name="proof_reference"/>
+        </constraint>
+
+        <index referenceId="PANTH_EU_WITHDRAWAL_REQUEST_INCREMENT_ID" indexType="btree">
+            <column name="increment_id"/>
+        </index>
+        <index referenceId="PANTH_EU_WITHDRAWAL_REQUEST_CUSTOMER_EMAIL" indexType="btree">
+            <column name="customer_email"/>
+        </index>
+        <index referenceId="PANTH_EU_WITHDRAWAL_REQUEST_STATUS" indexType="btree">
+            <column name="status"/>
+        </index>
+        <index referenceId="PANTH_EU_WITHDRAWAL_REQUEST_STORE_ID" indexType="btree">
+            <column name="store_id"/>
+        </index>
+        <index referenceId="PANTH_EU_WITHDRAWAL_REQUEST_REQUESTED_AT" indexType="btree">
+            <column name="requested_at"/>
+        </index>
+    </table>
+</schema>

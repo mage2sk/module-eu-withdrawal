@@ -1,0 +1,49 @@
+{
+    "name": "mage2kishan/module-eu-withdrawal",
+    "description": "Panth EU Withdrawal Button — a clear, accessible digital withdrawal (cancellation) function for Magento 2 and Adobe Commerce that complies with Directive (EU) 2023/2673 (effective 19 June 2026). Guest-capable two-step withdrawal flow, durable-medium email proof, withdrawal link in order emails, configurable 14-day window, admin request management and batch refund reminders. Full Hyva and Luma theme support.",
+    "type": "magento2-module",
+    "version": "1.0.0",
+    "license": "proprietary",
+    "keywords": [
+        "magento2",
+        "magento2-module",
+        "panth",
+        "eu withdrawal button",
+        "right of withdrawal",
+        "directive eu 2023/2673",
+        "order cancellation",
+        "consumer rights",
+        "hyva",
+        "luma"
+    ],
+    "homepage": "https://kishansavaliya.com",
+    "support": {
+        "email": "kishansavaliyakb@gmail.com",
+        "source": "https://kishansavaliya.com"
+    },
+    "authors": [
+        {
+            "name": "Kishan Savaliya",
+            "email": "kishansavaliyakb@gmail.com",
+            "homepage": "https://kishansavaliya.com",
+            "role": "Developer"
+        }
+    ],
+    "require": {
+        "php": "~8.1.0||~8.2.0||~8.3.0||~8.4.0",
+        "magento/framework": ">=103.0",
+        "magento/module-backend": ">=102.0",
+        "magento/module-store": ">=101.1",
+        "magento/module-sales": ">=103.0",
+        "magento/module-ui": ">=101.2",
+        "mage2kishan/module-core": "^1.0"
+    },
+    "autoload": {
+        "files": [
+            "registration.php"
+        ],
+        "psr-4": {
+            "Panth\\EuWithdrawal\\": ""
+        }
+    }
+}

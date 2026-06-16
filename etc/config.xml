@@ -1,0 +1,43 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Store:etc/config.xsd">
+    <default>
+        <panth_euwithdrawal>
+            <general>
+                <enabled>1</enabled>
+                <button_label>Cancel my order</button_label>
+                <placement>floating,account</placement>
+                <float_side>right</float_side>
+                <period_days>14</period_days>
+                <period_basis>order</period_basis>
+                <order_status/>
+            </general>
+            <form>
+                <ask_reason>1</ask_reason>
+                <enable_honeypot>1</enable_honeypot>
+                <rate_limit>10</rate_limit>
+            </form>
+            <compliance>
+                <intro_text>As an EU consumer you have the right to withdraw from this purchase within the withdrawal period, without giving any reason. Use the form below to cancel your order.</intro_text>
+                <excluded_products_text>Some products are excluded from the right of withdrawal, including custom-made or personalised goods, perishable items, sealed hygiene products once opened, and digital content once downloading has begun.</excluded_products_text>
+                <return_shipping_text>Unless stated otherwise before purchase, the cost of returning the goods is borne by the store.</return_shipping_text>
+                <refund_policy_text>Refunds are processed within 14 days of your withdrawal declaration, using the same payment method as your original purchase, at no extra cost to you.</refund_policy_text>
+            </compliance>
+            <email>
+                <sender_identity>general</sender_identity>
+                <send_customer_confirmation>1</send_customer_confirmation>
+                <customer_template>panth_euwithdrawal_email_customer_template</customer_template>
+                <send_admin_notification>1</send_admin_notification>
+                <recipient_email>orders@example.com</recipient_email>
+                <admin_template>panth_euwithdrawal_email_admin_template</admin_template>
+                <inject_order_email_link>1</inject_order_email_link>
+            </email>
+            <batch>
+                <cron_enabled>1</cron_enabled>
+                <batch_size>50</batch_size>
+                <refund_reminder_enabled>1</refund_reminder_enabled>
+                <refund_reminder_days>10</refund_reminder_days>
+            </batch>
+        </panth_euwithdrawal>
+    </default>
+</config>

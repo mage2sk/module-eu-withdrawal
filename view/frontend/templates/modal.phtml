@@ -1,0 +1,34 @@
+<?php
+/**
+ * Site-wide withdrawal modal, opened by the floating/header/footer triggers.
+ * Hidden until JS adds .is-open. The form inside posts to the lookup step.
+ *
+ * @var \Panth\EuWithdrawal\Block\Modal $block
+ * @var \Magento\Framework\Escaper $escaper
+ */
+/** @var \Panth\EuWithdrawal\ViewModel\Withdrawal $vm */
+$vm = $block->getViewModel();
+if (!$vm->isEnabled()) {
+    return;
+}
+?>
+<div id="panth-euw-modal" class="panth-euw-modal panth-euw" role="dialog" aria-modal="true"
+     aria-labelledby="panth-euw-modal-title" aria-hidden="true">
+    <div class="panth-euw-modal__dialog">
+        <div class="panth-euw-modal__head">
+            <h2 id="panth-euw-modal-title" class="panth-euw-modal__title">
+                <?= $escaper->escapeHtml($vm->getButtonLabel()) ?>
+            </h2>
+            <button type="button" class="panth-euw-modal__close" data-panth-euw-close
+                    aria-label="<?= $escaper->escapeHtmlAttr(__('Close')) ?>">&times;</button>
+        </div>
+        <div class="panth-euw-modal__body">
+            <?php if ($vm->getIntroText()): ?>
+                <p class="panth-euw-intro"><?= $escaper->escapeHtml($vm->getIntroText()) ?></p>
+            <?php endif; ?>
+            <div class="panth-euw-card">
+                <?= $block->getChildHtml('fields') ?>
+            </div>
+        </div>
+    </div>
+</div>

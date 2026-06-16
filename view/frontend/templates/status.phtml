@@ -1,0 +1,47 @@
+<?php
+/**
+ * Withdrawal status page — shown when an order already has a withdrawal request,
+ * so the customer cannot submit twice. Theme-neutral.
+ *
+ * @var \Magento\Framework\View\Element\Template $block
+ * @var \Magento\Framework\Escaper $escaper
+ */
+/** @var \Panth\EuWithdrawal\ViewModel\Withdrawal $vm */
+$vm = $block->getViewModel();
+$request = $vm->getStatusRequest();
+if (!$request) {
+    return;
+}
+$status = (int)$request->getStatus();
+?>
+<div class="panth-euw">
+    <h1 class="panth-euw-title"><?= $escaper->escapeHtml(__('Withdrawal status')) ?></h1>
+    <div class="panth-euw-card">
+        <p class="panth-euw-intro">
+            <?= $escaper->escapeHtml(__('A withdrawal request for this order has already been received. Here is its current status.')) ?>
+        </p>
+
+        <div class="panth-euw-summary">
+            <p>
+                <strong><?= $escaper->escapeHtml(__('Status')) ?>:</strong>
+                <span class="panth-euw-badge panth-euw-badge--<?= (int)$status ?>"><?= $escaper->escapeHtml($vm->getStatusLabel($status)) ?></span>
+            </p>
+            <p><strong><?= $escaper->escapeHtml(__('Proof reference')) ?>:</strong> <?= $escaper->escapeHtml($request->getProofReference()) ?></p>
+            <p><strong><?= $escaper->escapeHtml(__('Order number')) ?>:</strong> <?= $escaper->escapeHtml($request->getIncrementId()) ?></p>
+            <p><strong><?= $escaper->escapeHtml(__('Requested on')) ?>:</strong> <?= $escaper->escapeHtml($vm->formatStoredDate($request->getRequestedAt())) ?></p>
+        </div>
+
+        <?php if ($request->getWithdrawalContent()): ?>
+            <h3 class="panth-euw-subhead"><?= $escaper->escapeHtml(__('What was withdrawn')) ?></h3>
+            <pre class="panth-euw-pre"><?= $escaper->escapeHtml($request->getWithdrawalContent()) ?></pre>
+        <?php endif; ?>
+
+        <?php if ($vm->getRefundPolicyText()): ?>
+            <p class="panth-euw-fineprint"><?= $escaper->escapeHtml($vm->getRefundPolicyText()) ?></p>
+        <?php endif; ?>
+
+        <div class="panth-euw-actions">
+            <a class="panth-euw-cancel" href="<?= $escaper->escapeUrl($vm->getFormUrl()) ?>"><?= $escaper->escapeHtml(__('Back')) ?></a>
+        </div>
+    </div>
+</div>

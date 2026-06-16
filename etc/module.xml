@@ -1,0 +1,20 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Panth EU Withdrawal Button — module declaration.
+ * Sequenced after Panth_Core (shared theme detection + admin menu parent)
+ * and Magento_Sales (order lookup + order-email link injection).
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:framework:Module/etc/module.xsd">
+    <module name="Panth_EuWithdrawal">
+        <sequence>
+            <module name="Magento_Store"/>
+            <module name="Magento_Backend"/>
+            <module name="Magento_Sales"/>
+            <module name="Magento_Ui"/>
+            <module name="Panth_Core"/>
+        </sequence>
+    </module>
+</config>

@@ -1,0 +1,17 @@
+<?php
+/**
+ * Always-visible header / footer withdrawal link (opens the modal via JS,
+ * falls back to the /withdrawal page without JS).
+ *
+ * @var \Panth\EuWithdrawal\Block\Link $block
+ * @var \Magento\Framework\Escaper $escaper
+ */
+$slot = $block->getSlot();
+?>
+<div class="panth-euw-link panth-euw-link--<?= $escaper->escapeHtmlAttr($slot) ?>">
+    <a href="<?= $escaper->escapeUrl($block->getHref()) ?>"
+       data-panth-euw-open
+       title="<?= $escaper->escapeHtmlAttr($block->getLabel()) ?>">
+        <?= $escaper->escapeHtml($block->getLabel()) ?>
+    </a>
+</div>

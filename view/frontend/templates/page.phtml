@@ -1,0 +1,35 @@
+<?php
+/**
+ * Step 1 — withdrawal form PAGE (no-JS fallback / direct link target).
+ * Theme-neutral; renders the shared form child. Works on Hyva and Luma.
+ *
+ * @var \Magento\Framework\View\Element\Template $block
+ * @var \Magento\Framework\Escaper $escaper
+ */
+/** @var \Panth\EuWithdrawal\ViewModel\Withdrawal $vm */
+$vm = $block->getViewModel();
+?>
+<div class="panth-euw">
+    <h1 class="panth-euw-title"><?= $escaper->escapeHtml($vm->getPageTitle()) ?></h1>
+    <div class="panth-euw-card">
+        <?php if ($vm->getIntroText()): ?>
+            <p class="panth-euw-intro"><?= $escaper->escapeHtml($vm->getIntroText()) ?></p>
+        <?php endif; ?>
+
+        <?= $block->getChildHtml('fields') ?>
+
+        <?php if ($vm->getExcludedProductsText() || $vm->getReturnShippingText() || $vm->getRefundPolicyText()): ?>
+            <div class="panth-euw-notes">
+                <?php if ($vm->getExcludedProductsText()): ?>
+                    <p><strong><?= $escaper->escapeHtml(__('Excluded products')) ?>:</strong> <?= $escaper->escapeHtml($vm->getExcludedProductsText()) ?></p>
+                <?php endif; ?>
+                <?php if ($vm->getReturnShippingText()): ?>
+                    <p><strong><?= $escaper->escapeHtml(__('Return shipping')) ?>:</strong> <?= $escaper->escapeHtml($vm->getReturnShippingText()) ?></p>
+                <?php endif; ?>
+                <?php if ($vm->getRefundPolicyText()): ?>
+                    <p><strong><?= $escaper->escapeHtml(__('Refunds')) ?>:</strong> <?= $escaper->escapeHtml($vm->getRefundPolicyText()) ?></p>
+                <?php endif; ?>
+            </div>
+        <?php endif; ?>
+    </div>
+</div>

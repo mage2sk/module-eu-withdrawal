@@ -1,0 +1,22 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Email:etc/email_templates.xsd">
+    <template id="panth_euwithdrawal_email_customer_template"
+              label="Panth EU Withdrawal — Customer Confirmation (durable proof)"
+              file="customer_confirmation.html"
+              type="html"
+              module="Panth_EuWithdrawal"
+              area="frontend"/>
+    <template id="panth_euwithdrawal_email_admin_template"
+              label="Panth EU Withdrawal — Admin Notification"
+              file="admin_notification.html"
+              type="html"
+              module="Panth_EuWithdrawal"
+              area="frontend"/>
+    <template id="panth_euwithdrawal_refund_reminder"
+              label="Panth EU Withdrawal — Refund Deadline Reminder"
+              file="refund_reminder.html"
+              type="html"
+              module="Panth_EuWithdrawal"
+              area="frontend"/>
+</config>

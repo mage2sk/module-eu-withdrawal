@@ -1,0 +1,26 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Backend:etc/menu.xsd">
+    <menu>
+        <add id="Panth_EuWithdrawal::withdrawal"
+             title="EU Withdrawal Button"
+             module="Panth_EuWithdrawal"
+             parent="Panth_Core::panth_extensions"
+             sortOrder="70"
+             resource="Panth_EuWithdrawal::withdrawal"/>
+        <add id="Panth_EuWithdrawal::requests"
+             title="Withdrawal Requests"
+             module="Panth_EuWithdrawal"
+             parent="Panth_EuWithdrawal::withdrawal"
+             action="panth_euwithdrawal/request/index"
+             resource="Panth_EuWithdrawal::request_view"
+             sortOrder="10"/>
+        <add id="Panth_EuWithdrawal::settings"
+             title="Configuration"
+             module="Panth_EuWithdrawal"
+             parent="Panth_EuWithdrawal::withdrawal"
+             action="adminhtml/system_config/edit/section/panth_euwithdrawal"
+             resource="Panth_EuWithdrawal::config"
+             sortOrder="20"/>
+    </menu>
+</config>

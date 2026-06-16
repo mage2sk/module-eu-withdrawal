@@ -1,0 +1,51 @@
+<?php
+/**
+ * Customer account — "My withdrawals" list.
+ *
+ * @var \Panth\EuWithdrawal\Block\Account\Withdrawals $block
+ * @var \Magento\Framework\Escaper $escaper
+ */
+$requests = $block->getRequests();
+?>
+<div class="panth-euw">
+    <div class="panth-euw-account__head">
+        <p class="panth-euw-intro" style="margin:0;">
+            <?= $escaper->escapeHtml(__('Your right-of-withdrawal requests and their current status.')) ?>
+        </p>
+        <a class="panth-euw-btn panth-euw-btn--sm" href="<?= $escaper->escapeUrl($block->getNewWithdrawalUrl()) ?>">
+            <?= $escaper->escapeHtml($block->getButtonLabel()) ?>
+        </a>
+    </div>
+
+    <?php if ($requests->getSize() === 0): ?>
+        <p class="panth-euw-empty"><?= $escaper->escapeHtml(__('You have no withdrawal requests yet.')) ?></p>
+    <?php else: ?>
+        <table class="panth-euw-list">
+            <thead>
+                <tr>
+                    <th><?= $escaper->escapeHtml(__('Order')) ?></th>
+                    <th><?= $escaper->escapeHtml(__('Requested on')) ?></th>
+                    <th><?= $escaper->escapeHtml(__('Status')) ?></th>
+                    <th><?= $escaper->escapeHtml(__('Proof reference')) ?></th>
+                    <th class="panth-euw-list__action"></th>
+                </tr>
+            </thead>
+            <tbody>
+                <?php foreach ($requests as $request): ?>
+                    <?php $st = (int)$request->getStatus(); ?>
+                    <tr>
+                        <td><?= $escaper->escapeHtml($request->getIncrementId()) ?></td>
+                        <td><?= $escaper->escapeHtml($block->formatRequestedAt((string)$request->getRequestedAt())) ?></td>
+                        <td><span class="panth-euw-badge panth-euw-badge--<?= $st ?>"><?= $escaper->escapeHtml($block->getStatusLabel($st)) ?></span></td>
+                        <td><?= $escaper->escapeHtml($request->getProofReference()) ?></td>
+                        <td class="panth-euw-list__action">
+                            <a class="panth-euw-viewlink" href="<?= $escaper->escapeUrl($block->getViewUrl((int)$request->getId())) ?>">
+                                <?= $escaper->escapeHtml(__('View')) ?>
+                            </a>
+                        </td>
+                    </tr>
+                <?php endforeach; ?>
+            </tbody>
+        </table>
+    <?php endif; ?>
+</div>

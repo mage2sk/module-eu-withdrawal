@@ -1,0 +1,34 @@
+<?php
+/**
+ * Proof / success page (theme-neutral).
+ *
+ * @var \Magento\Framework\View\Element\Template $block
+ * @var \Magento\Framework\Escaper $escaper
+ */
+/** @var \Panth\EuWithdrawal\ViewModel\Withdrawal $vm */
+$vm = $block->getViewModel();
+?>
+<div class="panth-euw">
+    <h1 class="panth-euw-title"><?= $escaper->escapeHtml(__('Withdrawal received')) ?></h1>
+    <div class="panth-euw-card panth-euw-success">
+        <div class="panth-euw-success__icon" aria-hidden="true">&#10003;</div>
+        <h2 class="panth-euw-success__heading"><?= $escaper->escapeHtml(__('Your withdrawal has been received')) ?></h2>
+        <p class="panth-euw-success__text">
+            <?= $escaper->escapeHtml(__('We have recorded your withdrawal and sent a confirmation to your email address as proof.')) ?>
+        </p>
+
+        <div class="panth-euw-proof">
+            <p><strong><?= $escaper->escapeHtml(__('Proof reference')) ?>:</strong> <?= $escaper->escapeHtml($vm->getProofReference()) ?></p>
+            <?php if ($vm->getProofIncrementId()): ?>
+                <p><strong><?= $escaper->escapeHtml(__('Order number')) ?>:</strong> <?= $escaper->escapeHtml($vm->getProofIncrementId()) ?></p>
+            <?php endif; ?>
+            <?php if ($vm->getProofEmail()): ?>
+                <p><strong><?= $escaper->escapeHtml(__('Confirmation sent to')) ?>:</strong> <?= $escaper->escapeHtml($vm->getProofEmail()) ?></p>
+            <?php endif; ?>
+        </div>
+
+        <?php if ($vm->getRefundPolicyText()): ?>
+            <p class="panth-euw-fineprint"><?= $escaper->escapeHtml($vm->getRefundPolicyText()) ?></p>
+        <?php endif; ?>
+    </div>
+</div>

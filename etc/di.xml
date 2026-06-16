@@ -1,0 +1,25 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+    <!-- Admin grid data source -> grid collection -->
+    <type name="Magento\Framework\View\Element\UiComponent\DataProvider\CollectionFactory">
+        <arguments>
+            <argument name="collections" xsi:type="array">
+                <item name="panth_euwithdrawal_request_listing_data_source" xsi:type="string">Panth\EuWithdrawal\Model\ResourceModel\Request\Grid\Collection</item>
+            </argument>
+        </arguments>
+    </type>
+    <virtualType name="Panth\EuWithdrawal\Model\ResourceModel\Request\Grid\Collection"
+                 type="Magento\Framework\View\Element\UiComponent\DataProvider\SearchResult">
+        <arguments>
+            <argument name="mainTable" xsi:type="string">panth_eu_withdrawal_request</argument>
+            <argument name="resourceModel" xsi:type="string">Panth\EuWithdrawal\Model\ResourceModel\Request</argument>
+        </arguments>
+    </virtualType>
+
+    <!-- Inject a pre-filled withdrawal link below the items table of order emails -->
+    <type name="Magento\Sales\Block\Order\Email\Items">
+        <plugin name="panth_euwithdrawal_order_email_link"
+                type="Panth\EuWithdrawal\Plugin\OrderEmailWithdrawalLink"/>
+    </type>
+</config>

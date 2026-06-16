@@ -1,0 +1,69 @@
+<?php
+/**
+ * Step 2 — confirmation page (theme-neutral, matches the form card on both themes).
+ *
+ * @var \Magento\Framework\View\Element\Template $block
+ * @var \Magento\Framework\Escaper $escaper
+ */
+/** @var \Panth\EuWithdrawal\ViewModel\Withdrawal $vm */
+$vm = $block->getViewModel();
+$order = $vm->getOrder();
+if (!$order) {
+    return;
+}
+?>
+<div class="panth-euw">
+    <h1 class="panth-euw-title"><?= $escaper->escapeHtml(__('Confirm your withdrawal')) ?></h1>
+    <div class="panth-euw-card">
+        <p class="panth-euw-intro">
+            <?= $escaper->escapeHtml(__('You are about to withdraw from the following order. This action will be recorded.')) ?>
+        </p>
+
+        <div class="panth-euw-summary">
+            <p><strong><?= $escaper->escapeHtml(__('Order number')) ?>:</strong> <?= $escaper->escapeHtml($order->getIncrementId()) ?></p>
+            <p><strong><?= $escaper->escapeHtml(__('Name')) ?>:</strong> <?= $escaper->escapeHtml($vm->getContextName()) ?></p>
+            <p><strong><?= $escaper->escapeHtml(__('Email')) ?>:</strong> <?= $escaper->escapeHtml($vm->getContextEmail()) ?></p>
+        </div>
+
+        <table class="panth-euw-table">
+            <thead>
+                <tr>
+                    <th><?= $escaper->escapeHtml(__('Item')) ?></th>
+                    <th><?= $escaper->escapeHtml(__('Qty')) ?></th>
+                    <th><?= $escaper->escapeHtml(__('Subtotal')) ?></th>
+                </tr>
+            </thead>
+            <tbody>
+                <?php foreach ($vm->getOrderItems() as $item): ?>
+                    <tr>
+                        <td><?= $escaper->escapeHtml($item->getName()) ?></td>
+                        <td><?= (int)$item->getQtyOrdered() ?></td>
+                        <td><?= $escaper->escapeHtml($vm->formatPrice((float)$item->getRowTotalInclTax())) ?></td>
+                    </tr>
+                <?php endforeach; ?>
+            </tbody>
+        </table>
+        <p class="panth-euw-total">
+            <?= $escaper->escapeHtml(__('Order total')) ?>: <?= $escaper->escapeHtml($vm->formatPrice((float)$order->getGrandTotal())) ?>
+        </p>
+
+        <?php if ($vm->getRefundPolicyText()): ?>
+            <p class="panth-euw-fineprint"><?= $escaper->escapeHtml($vm->getRefundPolicyText()) ?></p>
+        <?php endif; ?>
+
+        <form action="<?= $escaper->escapeUrl($vm->getSubmitUrl()) ?>" method="post">
+            <input name="form_key" type="hidden" value="<?= $escaper->escapeHtmlAttr($vm->getFormKey()) ?>"/>
+            <input type="hidden" name="increment_id" value="<?= $escaper->escapeHtmlAttr($order->getIncrementId()) ?>"/>
+            <input type="hidden" name="email" value="<?= $escaper->escapeHtmlAttr($vm->getContextEmail()) ?>"/>
+            <input type="hidden" name="name" value="<?= $escaper->escapeHtmlAttr($vm->getContextName()) ?>"/>
+            <input type="hidden" name="reason" value="<?= $escaper->escapeHtmlAttr($vm->getContextReason()) ?>"/>
+            <?php if ($vm->getContextToken()): ?>
+                <input type="hidden" name="token" value="<?= $escaper->escapeHtmlAttr($vm->getContextToken()) ?>"/>
+            <?php endif; ?>
+            <div class="panth-euw-actions">
+                <button type="submit" class="panth-euw-btn"><?= $escaper->escapeHtml(__('Confirm withdrawal')) ?></button>
+                <a class="panth-euw-cancel" href="<?= $escaper->escapeUrl($vm->getFormUrl()) ?>"><?= $escaper->escapeHtml(__('Cancel')) ?></a>
+            </div>
+        </form>
+    </div>
+</div>

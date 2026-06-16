@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<listing xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Ui:etc/ui_configuration.xsd">
+    <argument name="data" xsi:type="array">
+        <item name="js_config" xsi:type="array">
+            <item name="provider" xsi:type="string">panth_euwithdrawal_request_listing.panth_euwithdrawal_request_listing_data_source</item>
+        </item>
+    </argument>
+    <settings>
+        <spinner>panth_euwithdrawal_request_columns</spinner>
+        <deps>
+            <dep>panth_euwithdrawal_request_listing.panth_euwithdrawal_request_listing_data_source</dep>
+        </deps>
+    </settings>
+
+    <dataSource name="panth_euwithdrawal_request_listing_data_source"
+                component="Magento_Ui/js/grid/provider">
+        <settings>
+            <storageConfig>
+                <param name="indexField" xsi:type="string">request_id</param>
+            </storageConfig>
+            <updateUrl path="mui/index/render"/>
+        </settings>
+        <aclResource>Panth_EuWithdrawal::request_view</aclResource>
+        <dataProvider name="panth_euwithdrawal_request_listing_data_source"
+                      class="Magento\Framework\View\Element\UiComponent\DataProvider\DataProvider">
+            <settings>
+                <requestFieldName>request_id</requestFieldName>
+                <primaryFieldName>request_id</primaryFieldName>
+            </settings>
+        </dataProvider>
+    </dataSource>
+
+    <listingToolbar name="listing_top">
+        <settings>
+            <sticky>true</sticky>
+        </settings>
+        <bookmark name="bookmarks"/>
+        <columnsControls name="columns_controls"/>
+        <filters name="listing_filters"/>
+        <massaction name="listing_massaction">
+            <action name="delete">
+                <settings>
+                    <confirm>
+                        <message translate="true">Are you sure you want to delete the selected withdrawal requests?</message>
+                        <title translate="true">Delete Withdrawal Requests</title>
+                    </confirm>
+                    <url path="panth_euwithdrawal/request/massDelete"/>
+                    <type>delete</type>
+                    <label translate="true">Delete</label>
+                </settings>
+            </action>
+        </massaction>
+        <paging name="listing_paging"/>
+    </listingToolbar>
+
+    <columns name="panth_euwithdrawal_request_columns">
+        <selectionsColumn name="ids">
+            <settings>
+                <indexField>request_id</indexField>
+            </settings>
+        </selectionsColumn>
+
+        <column name="request_id" sortOrder="10">
+            <settings>
+                <filter>textRange</filter>
+                <label translate="true">ID</label>
+                <sorting>desc</sorting>
+            </settings>
+        </column>
+        <column name="proof_reference" sortOrder="20">
+            <settings>
+                <filter>text</filter>
+                <label translate="true">Proof Reference</label>
+            </settings>
+        </column>
+        <column name="increment_id" class="Panth\EuWithdrawal\Ui\Component\Listing\Column\OrderLink" sortOrder="30">
+            <settings>
+                <filter>text</filter>
+                <bodyTmpl>ui/grid/cells/html</bodyTmpl>
+                <label translate="true">Order</label>
+            </settings>
+        </column>
+        <column name="customer_name" sortOrder="40">
+            <settings>
+                <filter>text</filter>
+                <label translate="true">Customer</label>
+            </settings>
+        </column>
+        <column name="customer_email" sortOrder="50">
+            <settings>
+                <filter>text</filter>
+                <label translate="true">Email</label>
+            </settings>
+        </column>
+        <column name="reason" sortOrder="60">
+            <settings>
+                <filter>text</filter>
+                <label translate="true">Reason</label>
+            </settings>
+        </column>
+        <column name="status" component="Magento_Ui/js/grid/columns/select" sortOrder="70">
+            <settings>
+                <options class="Panth\EuWithdrawal\Model\Source\Status"/>
+                <filter>select</filter>
+                <dataType>select</dataType>
+                <label translate="true">Status</label>
+            </settings>
+        </column>
+        <column name="requested_at" class="Magento\Ui\Component\Listing\Columns\Date"
+                component="Magento_Ui/js/grid/columns/date" sortOrder="80">
+            <settings>
+                <filter>dateRange</filter>
+                <dataType>date</dataType>
+                <label translate="true">Requested At</label>
+            </settings>
+        </column>
+        <column name="store_id" class="Magento\Store\Ui\Component\Listing\Column\Store" sortOrder="90">
+            <settings>
+                <label translate="true">Store View</label>
+                <bodyTmpl>ui/grid/cells/html</bodyTmpl>
+                <sortable>false</sortable>
+            </settings>
+        </column>
+        <actionsColumn name="actions" class="Panth\EuWithdrawal\Ui\Component\Listing\Column\Actions" sortOrder="100">
+            <settings>
+                <indexField>request_id</indexField>
+                <label translate="true">Actions</label>
+            </settings>
+        </actionsColumn>
+    </columns>
+</listing>

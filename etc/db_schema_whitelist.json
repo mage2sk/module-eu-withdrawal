@@ -1,0 +1,36 @@
+{
+    "panth_eu_withdrawal_request": {
+        "column": {
+            "request_id": true,
+            "order_id": true,
+            "increment_id": true,
+            "store_id": true,
+            "customer_name": true,
+            "customer_email": true,
+            "reason": true,
+            "status": true,
+            "withdrawal_content": true,
+            "proof_reference": true,
+            "requested_at": true,
+            "ip_address": true,
+            "user_agent": true,
+            "confirmation_sent": true,
+            "reminder_sent": true,
+            "admin_note": true,
+            "created_at": true,
+            "updated_at": true
+        },
+        "constraint": {
+            "PRIMARY": true,
+            "PANTH_EU_WITHDRAWAL_REQUEST_ORDER_ID": true,
+            "PANTH_EU_WITHDRAWAL_REQUEST_PROOF_REFERENCE": true
+        },
+        "index": {
+            "PANTH_EU_WITHDRAWAL_REQUEST_INCREMENT_ID": true,
+            "PANTH_EU_WITHDRAWAL_REQUEST_CUSTOMER_EMAIL": true,
+            "PANTH_EU_WITHDRAWAL_REQUEST_STATUS": true,
+            "PANTH_EU_WITHDRAWAL_REQUEST_STORE_ID": true,
+            "PANTH_EU_WITHDRAWAL_REQUEST_REQUESTED_AT": true
+        }
+    }
+}

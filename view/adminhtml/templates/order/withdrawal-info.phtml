@@ -1,0 +1,50 @@
+<?php
+/**
+ * Admin order view — linked EU withdrawal request panel.
+ *
+ * @var \Panth\EuWithdrawal\Block\Adminhtml\Order\WithdrawalInfo $block
+ * @var \Magento\Framework\Escaper $escaper
+ */
+$request = $block->getWithdrawalRequest();
+if (!$request) {
+    return;
+}
+$status = (int)$request->getStatus();
+?>
+<section class="admin__page-section panth-euw-admin-order">
+    <div class="admin__page-section-title">
+        <span class="title"><?= $escaper->escapeHtml(__('EU Withdrawal Request')) ?></span>
+    </div>
+    <div class="admin__page-section-content">
+        <div class="admin__page-section-item">
+            <div class="admin__page-section-item-content">
+                <table class="admin__table-secondary">
+                    <tbody>
+                        <tr>
+                            <th><?= $escaper->escapeHtml(__('Status')) ?></th>
+                            <td><span class="<?= $escaper->escapeHtmlAttr($block->getStatusClass($status)) ?>"><?= $escaper->escapeHtml($block->getStatusLabel($status)) ?></span></td>
+                        </tr>
+                        <tr>
+                            <th><?= $escaper->escapeHtml(__('Proof Reference')) ?></th>
+                            <td>
+                                <a href="<?= $escaper->escapeUrl($block->getRequestViewUrl((int)$request->getId())) ?>">
+                                    <?= $escaper->escapeHtml($request->getProofReference()) ?>
+                                </a>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th><?= $escaper->escapeHtml(__('Requested On')) ?></th>
+                            <td><?= $escaper->escapeHtml($block->formatRequestedAt((string)$request->getRequestedAt())) ?></td>
+                        </tr>
+                        <?php if ($request->getReason()): ?>
+                            <tr>
+                                <th><?= $escaper->escapeHtml(__('Reason')) ?></th>
+                                <td><?= $escaper->escapeHtml($request->getReason()) ?></td>
+                            </tr>
+                        <?php endif; ?>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</section>

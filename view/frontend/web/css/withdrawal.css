@@ -1,0 +1,376 @@
+/**
+ * Panth EU Withdrawal — storefront styles (Hyva + Luma).
+ *
+ * Sizing is in px (not rem) on purpose: Luma sets html { font-size: 62.5% }
+ * (1rem = 10px) while Hyva uses a 16px base, so rem would render Luma ~40%
+ * smaller. px keeps the form identical on both themes.
+ *
+ * Loaded as an external stylesheet, so it is Content-Security-Policy safe.
+ */
+
+.panth-euw,
+.panth-euw-modal,
+.panth-euw-float {
+    --euw-primary: #1979c3;
+    --euw-primary-dark: #14629e;
+    --euw-border: #d9dce1;
+    --euw-text: #2b2b2b;
+    --euw-muted: #6c727d;
+    --euw-radius: 12px;
+}
+
+/* =========================================================
+   Honeypot (must never be visible)
+   ========================================================= */
+.panth-euw-hp {
+    position: absolute !important;
+    left: -9999px !important;
+    top: auto !important;
+    width: 1px !important;
+    height: 1px !important;
+    overflow: hidden !important;
+    opacity: 0 !important;
+    pointer-events: none !important;
+}
+
+.panth-euw-hidden { display: none !important; }
+
+/* =========================================================
+   Page title (replace the theme title with our own, centered)
+   ========================================================= */
+.panth-euw-page .page-title-wrapper,
+.panth-euw-page .column.main > .page-title,
+.panth-euw-page .page-main > .page-title,
+.panth-euw-page h1.page-title { display: none; }
+
+.panth-euw-title {
+    text-align: center;
+    font-family: inherit;
+    font-weight: 700;
+    font-size: 30px;
+    line-height: 1.2;
+    margin: 0 0 24px;
+    color: var(--euw-text);
+}
+
+/* =========================================================
+   Floating vertical side tab (always-visible, readable)
+   ========================================================= */
+.panth-euw-float {
+    position: fixed;
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 900;
+    font-family: inherit;
+}
+.panth-euw-float--right { right: 0; }
+.panth-euw-float--left  { left: 0; }
+
+.panth-euw-float__btn {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+    width: 44px;
+    box-sizing: border-box;
+    padding: 16px 0;
+    background: var(--euw-primary);
+    color: #fff;
+    text-decoration: none;
+    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.22);
+    transition: background-color 0.2s ease, box-shadow 0.2s ease;
+    -webkit-tap-highlight-color: transparent;
+    cursor: pointer;
+}
+/* High-specificity link resets so Luma's a / a:hover (link color + underline)
+   never bleed into the tab. */
+.panth-euw-float a.panth-euw-float__btn,
+.panth-euw-float a.panth-euw-float__btn:link,
+.panth-euw-float a.panth-euw-float__btn:visited,
+.panth-euw-float a.panth-euw-float__btn:hover,
+.panth-euw-float a.panth-euw-float__btn:focus,
+.panth-euw-float a.panth-euw-float__btn:active {
+    color: #fff;
+    text-decoration: none;
+}
+.panth-euw-float a.panth-euw-float__btn:hover,
+.panth-euw-float a.panth-euw-float__btn:focus-visible {
+    background: var(--euw-primary-dark);
+    box-shadow: 0 10px 26px rgba(0, 0, 0, 0.32);
+    outline: none;
+}
+.panth-euw-float__btn:hover .panth-euw-float__label,
+.panth-euw-float__btn:focus-visible .panth-euw-float__label { color: #fff; text-decoration: none; }
+.panth-euw-float--right .panth-euw-float__btn { border-radius: 12px 0 0 12px; }
+.panth-euw-float--left  .panth-euw-float__btn { border-radius: 0 12px 12px 0; }
+
+.panth-euw-float__icon { width: 20px; height: 20px; flex: 0 0 auto; display: block; }
+.panth-euw-float__label {
+    writing-mode: vertical-rl;
+    text-orientation: mixed;
+    font-size: 13px;
+    font-weight: 600;
+    letter-spacing: 0.02em;
+    line-height: 1;
+    white-space: nowrap;
+    text-decoration: none;
+    margin: 0;
+}
+
+@media (max-width: 768px) {
+    .panth-euw-float__btn { width: 40px; padding: 14px 0; }
+    .panth-euw-float__label { font-size: 12px; }
+}
+
+/* =========================================================
+   Header / footer text link
+   ========================================================= */
+.panth-euw-link--header { display: inline-block; margin: 0 10px; }
+.panth-euw-link--footer { text-align: center; padding: 14px 10px; }
+.panth-euw-link a { font-size: 13px; text-decoration: underline; cursor: pointer; }
+.panth-euw-link--header a { color: inherit; }
+.panth-euw-link--footer a { display: inline-block; color: #1979c3; }
+
+/* =========================================================
+   Form (shared by page + modal)
+   ========================================================= */
+.panth-euw {
+    color: var(--euw-text);
+    font-family: inherit;
+}
+.panth-euw-card {
+    max-width: 560px;
+    margin: 0 auto;
+    background: #fff;
+    border: 1px solid var(--euw-border);
+    border-radius: var(--euw-radius);
+    padding: 28px;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.04);
+}
+.panth-euw-intro { color: var(--euw-muted); font-size: 15px; line-height: 1.55; margin: 0 0 20px; }
+
+.panth-euw-msg {
+    background: #fff8e1;
+    border: 1px solid #ffe08a;
+    border-radius: 8px;
+    padding: 12px 14px;
+    font-size: 14px;
+    line-height: 1.45;
+    color: #7a5b00;
+    margin: 0 0 18px;
+}
+
+.panth-euw-field { margin-bottom: 16px; }
+.panth-euw-label {
+    display: block;
+    font-size: 14px;
+    font-weight: 600;
+    margin-bottom: 6px;
+    color: var(--euw-text);
+}
+.panth-euw-req { color: #e02b27; }
+
+.panth-euw-input,
+.panth-euw-textarea,
+select.panth-euw-input {
+    width: 100%;
+    box-sizing: border-box;
+    border: 1px solid var(--euw-border);
+    border-radius: 8px;
+    padding: 10px 12px;
+    font-family: inherit;
+    font-size: 15px;
+    line-height: 1.4;
+    color: var(--euw-text);
+    background: #fff;
+    transition: border-color 0.15s ease, box-shadow 0.15s ease;
+    box-shadow: none;
+    height: auto;
+}
+select.panth-euw-input {
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    padding-right: 34px;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='14' height='14' viewBox='0 0 24 24' fill='none' stroke='%236c727d' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 12px center;
+}
+.panth-euw-input:focus,
+.panth-euw-textarea:focus,
+select.panth-euw-input:focus {
+    border-color: var(--euw-primary);
+    box-shadow: 0 0 0 3px rgba(25, 121, 195, 0.15);
+    outline: none;
+}
+.panth-euw-textarea { min-height: 84px; resize: vertical; }
+
+.panth-euw-actions { margin-top: 20px; }
+.panth-euw-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    background: var(--euw-primary);
+    color: #fff;
+    border: 0;
+    border-radius: 8px;
+    padding: 11px 24px;
+    font-family: inherit;
+    font-size: 15px;
+    font-weight: 600;
+    letter-spacing: 0;
+    text-transform: none;
+    cursor: pointer;
+    text-decoration: none;
+    transition: background-color 0.2s ease;
+}
+.panth-euw-btn:hover,
+.panth-euw-btn:focus-visible { background: var(--euw-primary-dark); color: #fff; outline: none; }
+
+/* When the button is an <a> (account page, order view), Luma's account link
+   color (.account .column.main a, etc.) can out-specify a class selector, so
+   force white text with !important — a self-contained component button. */
+.panth-euw a.panth-euw-btn,
+.panth-euw a.panth-euw-btn:link,
+.panth-euw a.panth-euw-btn:visited,
+.panth-euw a.panth-euw-btn:hover,
+.panth-euw a.panth-euw-btn:focus,
+.panth-euw a.panth-euw-btn:active { color: #fff !important; text-decoration: none !important; }
+.panth-euw a.panth-euw-btn:hover,
+.panth-euw a.panth-euw-btn:focus-visible { background: var(--euw-primary-dark); }
+
+.panth-euw a.panth-euw-cancel,
+.panth-euw a.panth-euw-cancel:link,
+.panth-euw a.panth-euw-cancel:visited,
+.panth-euw a.panth-euw-cancel:hover,
+.panth-euw a.panth-euw-cancel:focus { color: var(--euw-muted); text-decoration: underline; }
+.panth-euw a.panth-euw-cancel:hover { color: var(--euw-text); }
+
+.panth-euw-notes { margin-top: 24px; font-size: 13px; color: var(--euw-muted); line-height: 1.5; }
+.panth-euw-notes p { margin: 0 0 8px; }
+.panth-euw-fineprint { margin: 14px 0 0; font-size: 13px; color: var(--euw-muted); line-height: 1.5; }
+.panth-euw-subhead { margin: 18px 0 6px; font-size: 15px; font-weight: 700; color: var(--euw-text); }
+.panth-euw-pre {
+    font-family: inherit; font-size: 13px; line-height: 1.6;
+    white-space: pre-wrap; background: #f7f8fa; border: 1px solid var(--euw-border);
+    border-radius: 8px; padding: 12px 14px; margin: 0; color: var(--euw-text);
+}
+
+/* ----- Confirm page ----- */
+.panth-euw-summary { margin: 4px 0 16px; }
+.panth-euw-summary p { margin: 0 0 6px; font-size: 15px; }
+.panth-euw-table { width: 100%; border-collapse: collapse; margin: 4px 0 4px; font-size: 14px; }
+.panth-euw-table th { text-align: left; border-bottom: 1px solid var(--euw-border); padding: 8px 0; font-weight: 600; color: var(--euw-text); }
+.panth-euw-table td { padding: 8px 0; border-bottom: 1px solid #eef0f2; color: var(--euw-text); }
+.panth-euw-table th:nth-child(2), .panth-euw-table td:nth-child(2) { text-align: center; width: 60px; }
+.panth-euw-table th:last-child, .panth-euw-table td:last-child { text-align: right; white-space: nowrap; }
+.panth-euw-total { text-align: right; margin: 12px 0 0; font-size: 15px; font-weight: 700; }
+.panth-euw-actions { display: flex; align-items: center; gap: 18px; margin-top: 20px; }
+.panth-euw-cancel { color: var(--euw-muted); text-decoration: underline; font-size: 14px; }
+.panth-euw-cancel:hover { color: var(--euw-text); }
+
+/* ----- Success page ----- */
+.panth-euw-success { text-align: center; }
+.panth-euw-success__icon {
+    width: 56px; height: 56px; margin: 0 auto 14px;
+    display: flex; align-items: center; justify-content: center;
+    border-radius: 50%; background: #e7f6ec; color: #1f9d55; font-size: 30px;
+}
+.panth-euw-success__heading { font-size: 20px; font-weight: 700; margin: 0 0 8px; color: var(--euw-text); }
+.panth-euw-success__text { color: var(--euw-muted); font-size: 15px; margin: 0 0 14px; line-height: 1.5; }
+.panth-euw-proof {
+    display: inline-block; text-align: left;
+    border: 1px solid var(--euw-border); border-radius: 8px;
+    padding: 14px 18px; margin: 0 0 6px; font-size: 14px; line-height: 1.6;
+}
+.panth-euw-proof p { margin: 0; color: var(--euw-text); }
+
+/* ----- Status badge (status page + account list) ----- */
+.panth-euw-badge {
+    display: inline-block; padding: 3px 10px; border-radius: 999px;
+    font-size: 12px; font-weight: 700; line-height: 1.5;
+}
+.panth-euw-badge--1 { background: #e8f1fb; color: #1763a6; }   /* Received */
+.panth-euw-badge--2 { background: #fff4e0; color: #9a6700; }   /* Acknowledged */
+.panth-euw-badge--3 { background: #e7f6ec; color: #1f9d55; }   /* Refunded */
+.panth-euw-badge--4 { background: #fdecec; color: #c0392b; }   /* Rejected */
+
+/* ----- Account withdrawals list ----- */
+.panth-euw-account__head { display: flex; align-items: center; justify-content: space-between; gap: 16px; margin-bottom: 16px; flex-wrap: wrap; }
+.panth-euw-account__head h2 { margin: 0; font-size: 20px; font-weight: 700; }
+.panth-euw-empty { color: var(--euw-muted); font-size: 15px; margin: 8px 0 16px; }
+.panth-euw-list { width: 100%; border-collapse: collapse; font-size: 14px; }
+.panth-euw-list th { text-align: left; border-bottom: 2px solid var(--euw-border); padding: 10px 8px; font-weight: 600; }
+.panth-euw-list td { padding: 12px 8px; border-bottom: 1px solid #eef0f2; vertical-align: middle; }
+.panth-euw-btn--sm { padding: 8px 16px; font-size: 14px; }
+.panth-euw-orderbtn { margin: 0 0 18px; }
+.panth-euw-list__action { text-align: right; white-space: nowrap; }
+.panth-euw a.panth-euw-viewlink,
+.panth-euw a.panth-euw-viewlink:hover { color: var(--euw-primary); text-decoration: underline; font-weight: 600; }
+
+/* =========================================================
+   Modal
+   ========================================================= */
+.panth-euw-modal {
+    position: fixed;
+    inset: 0;
+    z-index: 1000;
+    display: none;
+    align-items: flex-start;
+    justify-content: center;
+    padding: 5vh 16px;
+    background: rgba(15, 23, 42, 0.55);
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
+}
+.panth-euw-modal.is-open { display: flex; }
+
+.panth-euw-modal__dialog {
+    position: relative;
+    width: 100%;
+    max-width: 560px;
+    background: #fff;
+    border-radius: var(--euw-radius);
+    box-shadow: 0 24px 60px rgba(0, 0, 0, 0.35);
+    animation: panth-euw-pop 0.22s ease;
+}
+@keyframes panth-euw-pop {
+    from { opacity: 0; transform: translateY(12px) scale(0.98); }
+    to   { opacity: 1; transform: none; }
+}
+
+.panth-euw-modal__head {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 18px 24px;
+    border-bottom: 1px solid var(--euw-border);
+}
+.panth-euw-modal__title { margin: 0; font-family: inherit; font-size: 18px; font-weight: 700; color: var(--euw-text); }
+.panth-euw-modal__close {
+    appearance: none;
+    background: transparent;
+    border: 0;
+    font-size: 26px;
+    line-height: 1;
+    color: var(--euw-muted);
+    cursor: pointer;
+    padding: 2px 6px;
+    border-radius: 6px;
+}
+.panth-euw-modal__close:hover { color: var(--euw-text); background: #f1f3f5; }
+.panth-euw-modal__body { padding: 24px; }
+
+.panth-euw-modal .panth-euw-card {
+    max-width: none;
+    border: 0;
+    box-shadow: none;
+    padding: 0;
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .panth-euw-float__label,
+    .panth-euw-float__btn,
+    .panth-euw-modal__dialog { transition: none; animation: none; }
+}
