@@ -3,6 +3,14 @@
 All notable changes to **Panth EU Withdrawal Button** are documented here.
 This project adheres to [Semantic Versioning](https://semver.org/).
 
+## [1.0.1] - 2026-06-18
+### Changed
+- Rewrote README to match standard Panth Infotech template: added Quick Answer block,
+  Who Is It For, Configuration table (all system.xml fields), How It Works walkthrough,
+  FAQ section, Support table with product page row, and Quick Links table.
+- Fixed canonical URL in SEO meta to the live product page.
+- Removed link to commercemarketplace.adobe.com; Marketplace link now targets the live product page.
+
 ## [1.0.0] - 2026-06-16
 ### Added
 - Digital withdrawal function for Directive (EU) 2023/2673 (mandatory from 19 June 2026).
