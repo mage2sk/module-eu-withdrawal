@@ -1,0 +1,61 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Always-visible withdrawal entry points + the site-wide modal.
+ *
+ * The floating side button (default) and the optional header/footer links all
+ * carry data-panth-euw-open, so JS opens the modal; without JS they fall back
+ * to the /withdrawal page. header.container and before.body.end exist in both
+ * Luma and Hyva default layouts.
+ */
+-->
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <head>
+        <css src="Panth_EuWithdrawal::css/withdrawal.css"/>
+        <script src="Panth_EuWithdrawal::js/withdrawal.js"/>
+    </head>
+    <body>
+        <referenceContainer name="header.container">
+            <block class="Panth\EuWithdrawal\Block\Link"
+                   name="panth.euwithdrawal.header.link"
+                   template="Panth_EuWithdrawal::link.phtml"
+                   before="-">
+                <arguments>
+                    <argument name="slot" xsi:type="string">header</argument>
+                </arguments>
+            </block>
+        </referenceContainer>
+        <referenceContainer name="before.body.end">
+            <block class="Panth\EuWithdrawal\Block\Link"
+                   name="panth.euwithdrawal.float.link"
+                   template="Panth_EuWithdrawal::float.phtml">
+                <arguments>
+                    <argument name="slot" xsi:type="string">floating</argument>
+                </arguments>
+            </block>
+            <block class="Panth\EuWithdrawal\Block\Link"
+                   name="panth.euwithdrawal.footer.link"
+                   template="Panth_EuWithdrawal::link.phtml">
+                <arguments>
+                    <argument name="slot" xsi:type="string">footer</argument>
+                </arguments>
+            </block>
+            <block class="Panth\EuWithdrawal\Block\Modal"
+                   name="panth.euwithdrawal.modal"
+                   template="Panth_EuWithdrawal::modal.phtml">
+                <arguments>
+                    <argument name="view_model" xsi:type="object">Panth\EuWithdrawal\ViewModel\Withdrawal</argument>
+                </arguments>
+                <block class="Magento\Framework\View\Element\Template"
+                       name="panth.euwithdrawal.modal.fields" as="fields"
+                       template="Panth_EuWithdrawal::form/fields.phtml">
+                    <arguments>
+                        <argument name="view_model" xsi:type="object">Panth\EuWithdrawal\ViewModel\Withdrawal</argument>
+                        <argument name="form_id" xsi:type="string">modal</argument>
+                    </arguments>
+                </block>
+            </block>
+        </referenceContainer>
+    </body>
+</page>

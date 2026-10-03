@@ -1,0 +1,70 @@
+<?php
+/**
+ * Shared Step-1 withdrawal form (theme-neutral, used by the page and the modal).
+ *
+ * @var \Magento\Framework\View\Element\Template $block
+ * @var \Magento\Framework\Escaper $escaper
+ */
+/** @var \Panth\EuWithdrawal\ViewModel\Withdrawal $vm */
+$vm = $block->getViewModel();
+$prefill = $vm->getPrefill();
+$uid = $escaper->escapeHtmlAttr((string)($block->getData('form_id') ?: 'page'));
+?>
+<form class="panth-euw-form" action="<?= $escaper->escapeUrl($vm->getLookupUrl()) ?>" method="post"
+      data-euw-orders-url="<?= $escaper->escapeUrl($vm->getCustomerOrdersUrl()) ?>">
+    <div class="panth-euw-msg panth-euw-hidden" data-euw-message></div>
+    <input name="form_key" type="hidden" value="<?= $escaper->escapeHtmlAttr($vm->getFormKey()) ?>"/>
+    <?php if ($prefill['token']): ?>
+        <input type="hidden" name="token" value="<?= $escaper->escapeHtmlAttr($prefill['token']) ?>"/>
+    <?php endif; ?>
+
+    <!-- Bot trap: stamped by JS; never required for no-JS accessibility -->
+    <input type="hidden" name="panth_js" value=""/>
+    <input type="hidden" name="panth_dt" value=""/>
+
+    <div class="panth-euw-field">
+        <label class="panth-euw-label" for="euw-order-<?= $uid ?>">
+            <?= $escaper->escapeHtml(__('Order number')) ?> <span class="panth-euw-req">*</span>
+        </label>
+        <input class="panth-euw-input" type="text" id="euw-order-<?= $uid ?>" name="increment_id" required
+               value="<?= $escaper->escapeHtmlAttr($prefill['increment_id']) ?>"
+               placeholder="<?= $escaper->escapeHtmlAttr(__('e.g. 000000123')) ?>"/>
+    </div>
+
+    <div class="panth-euw-field">
+        <label class="panth-euw-label" for="euw-email-<?= $uid ?>">
+            <?= $escaper->escapeHtml(__('Email address')) ?> <span class="panth-euw-req">*</span>
+        </label>
+        <input class="panth-euw-input" type="email" id="euw-email-<?= $uid ?>" name="email" required
+               value="<?= $escaper->escapeHtmlAttr($prefill['email']) ?>"/>
+    </div>
+
+    <div class="panth-euw-field">
+        <label class="panth-euw-label" for="euw-name-<?= $uid ?>">
+            <?= $escaper->escapeHtml(__('Your name')) ?> <span class="panth-euw-req">*</span>
+        </label>
+        <input class="panth-euw-input" type="text" id="euw-name-<?= $uid ?>" name="name" required
+               value="<?= $escaper->escapeHtmlAttr($prefill['name']) ?>"/>
+    </div>
+
+    <?php if ($vm->askReason()): ?>
+        <div class="panth-euw-field">
+            <label class="panth-euw-label" for="euw-reason-<?= $uid ?>">
+                <?= $escaper->escapeHtml(__('Reason (optional)')) ?>
+            </label>
+            <textarea class="panth-euw-textarea" id="euw-reason-<?= $uid ?>" name="reason" rows="3"><?= $escaper->escapeHtml($prefill['reason']) ?></textarea>
+        </div>
+    <?php endif; ?>
+
+    <?php if ($vm->isHoneypotEnabled()): ?>
+        <div class="panth-euw-hp" aria-hidden="true">
+            <label>Leave this field empty
+                <input type="text" name="contact_url" tabindex="-1" autocomplete="off" value=""/>
+            </label>
+        </div>
+    <?php endif; ?>
+
+    <div class="panth-euw-actions">
+        <button type="submit" class="panth-euw-btn"><?= $escaper->escapeHtml(__('Continue')) ?></button>
+    </div>
+</form>

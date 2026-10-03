@@ -1,0 +1,15 @@
+/* Panth EU Withdrawal - admin status badge (order view + request grid). */
+.panth-euw-badge {
+    display: inline-block;
+    padding: 2px 8px;
+    border: 1px solid;
+    border-radius: 2px;
+    font-size: 12px;
+    font-weight: 600;
+    line-height: 1.5;
+}
+.panth-euw-badge--1 { background: #e5f7fe; border-color: #79a7c4; color: #00699d; }
+.panth-euw-badge--2 { background: #fffbbb; border-color: #e1cd00; color: #6f4400; }
+.panth-euw-badge--3 { background: #d0e5a9; border-color: #5b8116; color: #185b00; }
+.panth-euw-badge--4 { background: #f9d4d4; border-color: #e22626; color: #a00000; }
+.panth-euw-admin-order .admin__table-secondary th { width: 180px; }

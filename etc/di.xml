@@ -1,0 +1,55 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+    <!-- Admin grid data source -> grid collection -->
+    <type name="Magento\Framework\View\Element\UiComponent\DataProvider\CollectionFactory">
+        <arguments>
+            <argument name="collections" xsi:type="array">
+                <item name="panth_euwithdrawal_request_listing_data_source" xsi:type="string">Panth\EuWithdrawal\Model\ResourceModel\Request\Grid\Collection</item>
+            </argument>
+        </arguments>
+    </type>
+    <virtualType name="Panth\EuWithdrawal\Model\ResourceModel\Request\Grid\Collection"
+                 type="Magento\Framework\View\Element\UiComponent\DataProvider\SearchResult">
+        <arguments>
+            <argument name="mainTable" xsi:type="string">panth_eu_withdrawal_request</argument>
+            <argument name="resourceModel" xsi:type="string">Panth\EuWithdrawal\Model\ResourceModel\Request</argument>
+        </arguments>
+    </virtualType>
+
+    <!-- Inject a pre-filled withdrawal link below the items table of order emails -->
+    <type name="Magento\Sales\Block\Order\Email\Items">
+        <plugin name="panth_euwithdrawal_order_email_link"
+                type="Panth\EuWithdrawal\Plugin\OrderEmailWithdrawalLink"/>
+    </type>
+
+    <virtualType name="Panth\EuWithdrawal\Ui\RequestGridFulltextFilter" type="Panth\EuWithdrawal\Ui\Component\Listing\LikeFulltextFilter">
+        <arguments>
+            <argument name="columns" xsi:type="array">
+                <item name="proof_reference" xsi:type="string">main_table.proof_reference</item>
+                <item name="increment_id" xsi:type="string">main_table.increment_id</item>
+                <item name="customer_name" xsi:type="string">main_table.customer_name</item>
+                <item name="customer_email" xsi:type="string">main_table.customer_email</item>
+                <item name="reason" xsi:type="string">main_table.reason</item>
+            </argument>
+        </arguments>
+    </virtualType>
+    <virtualType name="Panth\EuWithdrawal\Ui\RequestGridFilterPool" type="Magento\Framework\View\Element\UiComponent\DataProvider\FilterPool">
+        <arguments>
+            <argument name="appliers" xsi:type="array">
+                <item name="regular" xsi:type="object">Magento\Framework\View\Element\UiComponent\DataProvider\RegularFilter</item>
+                <item name="fulltext" xsi:type="object">Panth\EuWithdrawal\Ui\RequestGridFulltextFilter</item>
+            </argument>
+        </arguments>
+    </virtualType>
+    <virtualType name="Panth\EuWithdrawal\Ui\RequestGridReporting" type="Magento\Framework\View\Element\UiComponent\DataProvider\Reporting">
+        <arguments>
+            <argument name="filterPool" xsi:type="object">Panth\EuWithdrawal\Ui\RequestGridFilterPool</argument>
+        </arguments>
+    </virtualType>
+    <virtualType name="Panth\EuWithdrawal\Ui\RequestGridDataProvider" type="Magento\Framework\View\Element\UiComponent\DataProvider\DataProvider">
+        <arguments>
+            <argument name="reporting" xsi:type="object">Panth\EuWithdrawal\Ui\RequestGridReporting</argument>
+        </arguments>
+    </virtualType>
+</config>
