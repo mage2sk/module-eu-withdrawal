@@ -1,0 +1,16 @@
+<?xml version="1.0"?>
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <body>
+        <referenceBlock name="customer_account_navigation">
+            <block class="Panth\EuWithdrawal\Block\Account\NavLink"
+                   name="customer-account-navigation-panth-withdrawal-link">
+                <arguments>
+                    <argument name="path" xsi:type="string">withdrawal/account</argument>
+                    <argument name="label" xsi:type="string" translate="true">My withdrawals</argument>
+                    <argument name="sortOrder" xsi:type="number">229</argument>
+                </arguments>
+            </block>
+        </referenceBlock>
+    </body>
+</page>

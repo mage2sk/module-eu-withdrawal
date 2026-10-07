@@ -1,0 +1,146 @@
+<?php
+/**
+ * Admin - withdrawal request detail + status update.
+ *
+ * @var \Panth\EuWithdrawal\Block\Adminhtml\Request\View $block
+ * @var \Magento\Framework\Escaper $escaper
+ */
+$request = $block->getWithdrawalRequest();
+if (!$request) {
+    return;
+}
+$currentStatus = (int)$request->getStatus();
+$rejected = $block->getRejectedStatus();
+$withdrawalDeadline = $block->getWithdrawalDeadline();
+$withinPeriod = $block->getRequestedWithinPeriod();
+$refundDeadline = $block->getRefundDeadline();
+?>
+<div class="panth-euw-admin-view">
+    <div class="admin__page-section">
+        <div class="admin__page-section-title">
+            <span class="title"><?= $escaper->escapeHtml(__('Withdrawal Details')) ?></span>
+        </div>
+        <div class="admin__page-section-content">
+            <table class="admin__table-secondary">
+                <tbody>
+                    <tr>
+                        <th><?= $escaper->escapeHtml(__('Proof Reference')) ?></th>
+                        <td><?= $escaper->escapeHtml($request->getProofReference()) ?></td>
+                    </tr>
+                    <tr>
+                        <th><?= $escaper->escapeHtml(__('Order')) ?></th>
+                        <td>
+                            <?php if ($block->getOrderViewUrl()): ?>
+                                <a href="<?= $escaper->escapeUrl($block->getOrderViewUrl()) ?>"><?= $escaper->escapeHtml($request->getIncrementId()) ?></a>
+                            <?php else: ?>
+                                <?= $escaper->escapeHtml($request->getIncrementId()) ?>
+                            <?php endif; ?>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th><?= $escaper->escapeHtml(__('Customer')) ?></th>
+                        <td><?= $escaper->escapeHtml($request->getCustomerName()) ?> (<?= $escaper->escapeHtml($request->getCustomerEmail()) ?>)</td>
+                    </tr>
+                    <tr>
+                        <th><?= $escaper->escapeHtml(__('Requested At')) ?></th>
+                        <td><?= $escaper->escapeHtml($block->formatDate2($request->getRequestedAt())) ?></td>
+                    </tr>
+                    <?php if ($withdrawalDeadline !== ''): ?>
+                        <tr>
+                            <th><?= $escaper->escapeHtml(__('Withdrawal Period Ends')) ?></th>
+                            <td><?= $escaper->escapeHtml($withdrawalDeadline) ?></td>
+                        </tr>
+                    <?php endif; ?>
+                    <?php if ($withinPeriod !== null): ?>
+                        <tr>
+                            <th><?= $escaper->escapeHtml(__('Sent Within The Period')) ?></th>
+                            <td><?= $escaper->escapeHtml($withinPeriod ? __('Yes') : __('No')) ?></td>
+                        </tr>
+                    <?php endif; ?>
+                    <?php if ($refundDeadline !== ''): ?>
+                        <tr>
+                            <th><?= $escaper->escapeHtml(__('Refund Due By')) ?></th>
+                            <td><?= $escaper->escapeHtml($refundDeadline) ?></td>
+                        </tr>
+                    <?php endif; ?>
+                    <?php if ($request->getReason()): ?>
+                        <tr>
+                            <th><?= $escaper->escapeHtml(__('Reason')) ?></th>
+                            <td><?= $escaper->escapeHtml($request->getReason()) ?></td>
+                        </tr>
+                    <?php endif; ?>
+                    <tr>
+                        <th><?= $escaper->escapeHtml(__('Confirmation Email Sent')) ?></th>
+                        <td><?= $request->getConfirmationSent() ? $escaper->escapeHtml(__('Yes')) : $escaper->escapeHtml(__('No')) ?></td>
+                    </tr>
+                    <tr>
+                        <th><?= $escaper->escapeHtml(__('Content Of The Withdrawal')) ?></th>
+                        <td><pre style="white-space:pre-wrap;font-family:inherit;margin:0;"><?= $escaper->escapeHtml($request->getWithdrawalContent()) ?></pre></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <form action="<?= $escaper->escapeUrl($block->getSaveUrl()) ?>" method="post" id="panth-euw-manage-form" novalidate="novalidate">
+        <?= $block->getBlockHtml('formkey') ?>
+        <input type="hidden" name="request_id" value="<?= (int)$request->getId() ?>"/>
+        <div class="admin__page-section">
+            <div class="admin__page-section-title">
+                <span class="title"><?= $escaper->escapeHtml(__('Manage')) ?></span>
+            </div>
+            <div class="admin__page-section-content">
+                <div class="admin__field">
+                    <label class="admin__field-label" for="panth-euw-status"><span><?= $escaper->escapeHtml(__('Status')) ?></span></label>
+                    <div class="admin__field-control">
+                        <select name="status" id="panth-euw-status" class="admin__control-select"
+                                data-current="<?= (int)$currentStatus ?>" data-rejected="<?= (int)$rejected ?>"
+                                aria-describedby="panth-euw-status-guidance">
+                            <?php foreach ($block->getStatusOptions() as $value => $label): ?>
+                                <option value="<?= (int)$value ?>" <?= $currentStatus === (int)$value ? 'selected="selected"' : '' ?>>
+                                    <?= $escaper->escapeHtml(__($label)) ?>
+                                </option>
+                            <?php endforeach; ?>
+                        </select>
+                        <div class="admin__field-note" id="panth-euw-status-guidance">
+                            <span><?= $escaper->escapeHtml(__('Use Rejected only when the withdrawal was sent after the withdrawal period ended, when it covers only products excluded from the right of withdrawal, or when the message is not a valid withdrawal. A late return of the goods, opened packaging or the customer not giving a reason is not a ground for rejection.')) ?></span>
+                            <span><?= $escaper->escapeHtml(__('A reason is required for Rejected.')) ?></span>
+                            <?php if ($block->isStatusEmailEnabled()): ?>
+                                <span><?= $escaper->escapeHtml(__('The reason is included in the status email to the customer.')) ?></span>
+                            <?php else: ?>
+                                <span><?= $escaper->escapeHtml(__('Status emails to the customer are switched off (Email Customer On Status Change), so tell the customer the reason yourself.')) ?></span>
+                            <?php endif; ?>
+                        </div>
+                    </div>
+                </div>
+                <div class="admin__field">
+                    <label class="admin__field-label" for="panth-euw-status-comment">
+                        <span><?= $escaper->escapeHtml(__('Reason / Comment For The Customer')) ?></span>
+                        <span id="panth-euw-comment-required" hidden="hidden"> (<?= $escaper->escapeHtml(__('required')) ?>)</span>
+                    </label>
+                    <div class="admin__field-control">
+                        <textarea name="status_comment" id="panth-euw-status-comment" rows="3" class="admin__control-textarea"
+                                  aria-describedby="panth-euw-comment-note panth-euw-comment-error"></textarea>
+                        <label class="mage-error" id="panth-euw-comment-error" for="panth-euw-status-comment" hidden="hidden"><?= $escaper->escapeHtml(__('Enter the reason for the rejection.')) ?></label>
+                        <div class="admin__field-note" id="panth-euw-comment-note">
+                            <span><?= $escaper->escapeHtml(__('Included in the status email when the status changes, and recorded in the internal note.')) ?></span>
+                        </div>
+                    </div>
+                </div>
+                <div class="admin__field">
+                    <label class="admin__field-label" for="panth-euw-admin-note"><span><?= $escaper->escapeHtml(__('Internal Note')) ?></span></label>
+                    <div class="admin__field-control">
+                        <textarea name="admin_note" id="panth-euw-admin-note" rows="3" class="admin__control-textarea"><?= $escaper->escapeHtml($request->getData('admin_note')) ?></textarea>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="admin__page-section" style="display:flex;gap:10px;">
+            <button type="submit" class="action-primary"><span><?= $escaper->escapeHtml(__('Save')) ?></span></button>
+            <a href="<?= $escaper->escapeUrl($block->getBackUrl()) ?>" class="action-secondary"><span><?= $escaper->escapeHtml(__('Back')) ?></span></a>
+        </div>
+    </form>
+</div>
+<script type="text/x-magento-init">
+{"#panth-euw-manage-form": {"Panth_EuWithdrawal/js/request-status": {}}}
+</script>

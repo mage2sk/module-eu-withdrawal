@@ -1,0 +1,14 @@
+<?xml version="1.0"?>
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <head>
+        <css src="Panth_EuWithdrawal::css/admin.css"/>
+    </head>
+    <body>
+        <referenceContainer name="order_additional_info">
+            <block class="Panth\EuWithdrawal\Block\Adminhtml\Order\WithdrawalInfo"
+                   name="panth.euwithdrawal.order.info"
+                   template="Panth_EuWithdrawal::order/withdrawal-info.phtml"/>
+        </referenceContainer>
+    </body>
+</page>

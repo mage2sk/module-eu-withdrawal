@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:framework:Acl/etc/acl.xsd">
+    <acl>
+        <resources>
+            <resource id="Magento_Backend::admin">
+                <resource id="Magento_Backend::stores">
+                    <resource id="Magento_Backend::stores_settings">
+                        <resource id="Magento_Config::config">
+                            <resource id="Panth_EuWithdrawal::config" title="Panth EU Withdrawal Button" sortOrder="180"/>
+                        </resource>
+                    </resource>
+                </resource>
+                <resource id="Panth_EuWithdrawal::withdrawal" title="EU Withdrawal Button" sortOrder="210">
+                    <resource id="Panth_EuWithdrawal::request_view" title="View Withdrawal Requests" sortOrder="10"/>
+                    <resource id="Panth_EuWithdrawal::request_manage" title="Manage Withdrawal Requests" sortOrder="20"/>
+                </resource>
+            </resource>
+        </resources>
+    </acl>
+</config>

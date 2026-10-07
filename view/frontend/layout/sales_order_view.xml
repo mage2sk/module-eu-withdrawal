@@ -1,0 +1,13 @@
+<?xml version="1.0"?>
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <body>
+        <referenceContainer name="content">
+            <block class="Panth\EuWithdrawal\Block\Order\WithdrawButton"
+                   name="panth.euwithdrawal.order.button"
+                   template="Panth_EuWithdrawal::order/withdraw-button.phtml"
+                   before="-"
+                   cacheable="false"/>
+        </referenceContainer>
+    </body>
+</page>
